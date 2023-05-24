@@ -150,34 +150,34 @@ En caso de que no se reciba ningún dato (la condición if data: sea falsa), se 
 
 
         if __name__ == "__main__":
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            server_address = ('0.0.0.0', 5000)
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   #Definir el socket
+            server_address = ('0.0.0.0', 5000)  #CREAR EL TUPLE
             print(f"Iniciando servidor en IP {server_address[0]}, con puerto {server_address[1]}")
 
-            sock.bind(server_address)
+            sock.bind(server_address)   # CREAR EL SOCKET(IP + PUERTO)
 
-            sock.listen(5)
+            sock.listen(5)   # PONER AL SERVIDOR EN MODO ESCUCHA
 
             while True:
                 print("Esperando conexiones...")
-                conn, client_address = sock.accept()
+                conn, client_address = sock.accept()   # ACEPTA CONEXION CON EL CLIENTE Y ALMACENA SU IP Y PUERTO EN CLIENT ADRESS, CREAR EL CONN
                 print(f"Conexion desde: {client_address[0]}:{client_address[1]}")
 
                 try:
                     while True:
-                        data = conn.recv(SOCK_BUFFER)
+                        data = conn.recv(SOCK_BUFFER)   # RECIBE DATA DEL CLIENTE, DE UN CIERTO TAMAÑO (SOCK_BUFFER)
 
                         if data:
                             print(f"Recibido {data.decode('utf-8')}")
-                            conn.sendall(data)
+                            conn.sendall(data)          # EL SERVIDOR DEVUELVE LA DATA AL CLIENTE
                         else:
                             print("No hay mas datos")
                             break
-                except ConnectionResetError:
+                except ConnectionResetError:             #EXCEPCION
                     print("El cliente ha cerrado la conexion de forma abrupta")
                 finally:
                     print("El cliente ha cerrado la conexion")
-                    conn.close()
+                    conn.close()                          #SE CIERRA LA CONEXION CON EL CLIENTE POR MEDIO DEL OBJETO CREADO(CONN)
 
 El primer while es para esperar conexion con un cliente, el que sigue que esta dentro el try es para recibir los datos que envie el cliente, luego se procede a enviarselos de nuevo o sino a indicar que no hay datos, tambien existe una exepcion, y por ultimo siempre se mostrata al final de todoo ello lo del finally, para indicar que el cliente con el que se hizo conexion al principio del while, ha cerrado la conexion.
 
