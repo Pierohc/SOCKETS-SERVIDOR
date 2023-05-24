@@ -40,6 +40,7 @@ Existiria un error de sintaxis si se quiere modificar el tuple, por ejemplo lueg
         mi_tuple[0[ = 4
 
 -------------------------------------------------------------------------------------
+# ENLACE DE IP CON UN PUERTO PARA OBTENER EL SOCKET DEL SERVIDOR
 
 socket = ip + puerto
 
@@ -69,6 +70,7 @@ Es equivalente a si pusiera:
 Se utiliza en la programación de sockets en Python para enlazar o asociar un socket a una dirección específica (server_address) en el sistema operativo. Esta función se utiliza principalmente en el lado del servidor para configurar el socket y escuchar conexiones entrantes.
 
 -----------------------------------------------------------------------------------------------
+# PONER EL SERVIDOR EN MODO LISTENING(DISPONIBLE PARA RECIBIR CONEXIONES)
 
       sock.listen(5)
       
@@ -87,27 +89,58 @@ Una vez que se ha llamado a `sock.listen(5)`, el socket está en modo de escucha
 Es importante destacar que `listen()` debe llamarse después de `bind()` y antes de `accept()`. Si se intenta llamar a `accept()` antes de `listen()`, se producirá un error.
 
 --------------------------------------------------------
+# ACCEPT: SE RECIBE IP Y PUERTO DEL CLIENTE Y SE CREA UN NUEVO OBJETO DE SOCKET PARA ENVIAR/RECIBIR DATOS
 
-        while True :
-            print("Esperando conexiones...")
+La línea de código `conn, client_address = sock.accept()` se utiliza en la programación de sockets en Python en el lado del servidor para aceptar una conexión entrante y obtener un nuevo socket y la dirección del cliente que ha establecido la conexión.
+
             conn, client_address = sock.accept()
-
-
-La línea de código conn, client_address = sock.accept() se utiliza en la programación de sockets en Python en el lado del servidor para aceptar una conexión entrante y obtener un nuevo socket y la dirección del cliente que ha establecido la conexión.
 
 La variable `client_address` en el contexto de `sock.accept()` contendrá una tupla con dos elementos: la dirección IP del cliente y el número de puerto utilizado en la conexión. Por lo tanto, para acceder a cada uno de estos elementos, se utilizaría la notación de índices de tupla.
 
-La forma correcta sería `client_address[0]` y `client_address[1]` para acceder a la dirección IP y al número de puerto respectivamente.
+`client_address[0]` y `client_address[1]` para acceder a la dirección IP y al número de puerto respectivamente.
 
 Por ejemplo:
 
-```python
-conn, client_address = sock.accept()
-print(client_address[0])  # Imprime la dirección IP del cliente
-print(client_address[1])  # Imprime el número de puerto del cliente
-```
+    conn, client_address = sock.accept()
+    print(client_address[0])  # Imprime la dirección IP del cliente
+    print(client_address[1])  # Imprime el número de puerto del cliente
 
-Por otro lado, conn es un nuevo objeto socket que representa una conexión específica establecida con un cliente. Se utiliza para enviar y recibir datos de manera individual con ese cliente en particular.
+Por otro lado, `conn`es un nuevo objeto socket que representa una conexión específica establecida con un cliente. Se utiliza para enviar y recibir datos de manera individual con ese cliente en particular. Este nuevo objeto de socket es independiente del socket de escucha original y se utiliza para enviar y recibir datos específicamente para esa conexión cliente-servidor.
+El nuevo objeto de socket tiene su propio conjunto de métodos y propiedades que se pueden utilizar para interactuar con el cliente, como send() para enviar datos al cliente y recv() para recibir datos del cliente.
+
+--------------------------------------------------------------------------------------------
+Creamos una iterativa, como ya enlazamos el tuple y tenemos el socket del servidor, se puso el servidor en modo listening, por lo que esta esperando alguna conexion.
+    
+Se imprime el mensaje de ello ("Esperando conexiones...")
+
+Al recibir alguna conexion se digita `sock.accept()`, la cual dará valores. Ello lo almacenamos en client_address, variable que obtendra dos valores, la ip del cliente como tambien el puerto. Conn, recibira un nuevo objeto de socket, es independiente del socket de escucha original y se utiliza para enviar y recibir datos específicamente para esa conexión cliente-servidor.
+
+Y se imprime el mensaje que se ha recibido un socket externo, el de un cliente, indicando su ip y el puerto.
+
+     while True:
+        print("Esperando conexiones...")
+        conn, client_address = sock.accept()
+        print(f"Conexion desde: {client_address[0]}:{client_address[1]}")
+
+----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
