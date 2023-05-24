@@ -150,7 +150,7 @@ En caso de que no se reciba ningún dato (la condición if data: sea falsa), se 
 
 
         if __name__ == "__main__":
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   #Definir el socket
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # DEFINIR EL SOCKET 
             server_address = ('0.0.0.0', 5000)  #CREAR EL TUPLE
             print(f"Iniciando servidor en IP {server_address[0]}, con puerto {server_address[1]}")
 
