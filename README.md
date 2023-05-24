@@ -53,7 +53,7 @@ La función sock.bind() se utiliza para enlazar un socket a una dirección IP y 
 
 Al enlazar un socket a una dirección IP y un puerto, se establece la "puerta de entrada" a la cual los clientes se conectarán para comunicarse con el servidor. De esta manera, el socket queda asociado a esa dirección IP y puerto en particular.
 
-    server_address = ('0.0.0.0', 5000)  #(direccion ip, puerto)
+    server_address = ("0.0.0.0", 5000)  #(direccion ip, puerto)
     print(f"Iniciando servidor en IP {server_address[0]}, con puerto {server_address[1]}")
 
     sock.bind(server_address)
