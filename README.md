@@ -1,4 +1,4 @@
-# SOCKETS para protocolos CLIENTE - SERVIDOR
+# SOCKETS - SERVIDOR: 
 
 libreria que sirve para networking
 
@@ -125,10 +125,40 @@ Y se imprime el mensaje que se ha recibido un socket externo, el de un cliente, 
 ----------------------------------------------------------------------------------------------------
 
 
+Se utiliza `conn.recv(SOCK_BUFFER)` para recibir datos del cliente. La variable `conn` representa un objeto de conexión de socket. `SOCK_BUFFER` es una variable que especifica el tamaño del búfer utilizado para recibir los datos.
 
+Luego, se realiza una comprobación con `if data:` para verificar si se ha recibido algún dato del cliente. Si se recibe algún dato, se imprime el mensaje "Recibido" junto con los datos decodificados utilizando el formato UTF-8. A continuación, se utiliza `conn.sendall(data)` para enviar de vuelta los mismos datos al cliente.
 
+En caso de que no se reciba ningún dato (la condición if data: sea falsa), se imprime el mensaje "No hay más datos" y se rompe el bucle while utilizando break, lo que indica que no se recibirán más datos y el bucle se detiene.
 
+    while True:
+        print("Esperando conexiones...")
+        conn, client_address = sock.accept()
+        print(f"Conexion desde: {client_address[0]}:{client_address[1]}")
 
+        try:
+            while True:
+                data = conn.recv(SOCK_BUFFER)
+
+                if data:
+                    print(f"Recibido {data.decode('utf-8')}")
+                    conn.sendall(data)
+                else:
+                    print("No hay mas datos")
+                    break
+        except ConnectionResetError:
+            print("El cliente ha cerrado la conexion de forma abrupta")
+        finally:
+            print("El cliente ha cerrado la conexion")
+            conn.close()
+
+El primer while es para esperar conexion con un cliente, el que sigue que esta dentro el try es para recibir los datos que envie el cliente, luego se procede a enviarselos de nuevo o sino a indicar que no hay datos, tambien existe una exepcion, y por ultimo siempre se mostrata al final de todoo ello lo del finally, para indicar que el cliente con el que se hizo conexion al principio del while, ha cerrado la conexion.
+
+Es importante destacar que el bloque except está ubicado después del bucle while True, lo que significa que cualquier excepción de tipo ConnectionResetError que ocurra dentro del bucle será capturada y manejada, permitiendo que el bucle continúe su ejecución en caso de otros errores no relacionados con la conexión.
+
+El bloque finally se ejecuta siempre, independientemente de si se captura una excepción o no. En este caso, se imprime el mensaje "El cliente ha cerrado la conexión" y se cierra la conexión utilizando el método `conn.close()` del objeto de conexión conn.
+
+En resumen, el código intenta recibir datos del cliente de forma continua, los procesa y los envía de vuelta. Si el cliente cierra la conexión de forma abrupta, se maneja la excepción y se cierra la conexión de manera adecuada. El bloque finally se utiliza para realizar acciones que deben ejecutarse siempre, como cerrar la conexión.
 
 
 
