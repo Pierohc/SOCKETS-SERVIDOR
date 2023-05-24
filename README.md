@@ -1,4 +1,4 @@
-#SOCKETS
+# SOCKETS para protocolos CLIENTE - SERVIDOR
 
 libreria que sirve para networking
 
