@@ -105,8 +105,7 @@ Por ejemplo:
     print(client_address[0])  # Imprime la dirección IP del cliente
     print(client_address[1])  # Imprime el número de puerto del cliente
 
-Por otro lado, `conn`es un nuevo objeto socket que representa una conexión específica establecida con un cliente. Se utiliza para enviar y recibir datos de manera individual con ese cliente en particular. Este nuevo objeto de socket es independiente del socket de escucha original y se utiliza para enviar y recibir datos específicamente para esa conexión cliente-servidor.
-El nuevo objeto de socket tiene su propio conjunto de métodos y propiedades que se pueden utilizar para interactuar con el cliente, como send() para enviar datos al cliente y recv() para recibir datos del cliente.
+Por otro lado, `conn`es el objeto de socket del cliente, se usa para interactuar con el cliente, como sendall() para enviarle datos y recv() para recibir datos del cliente.
 
 --------------------------------------------------------------------------------------------
 Creamos una iterativa, como ya enlazamos el tuple y tenemos el socket del servidor, se puso el servidor en modo listening, por lo que esta esperando alguna conexion.
